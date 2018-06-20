@@ -17,7 +17,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.*;
 
-@ActiveProfiles("test")
+@ActiveProfiles("OrderRepoTest")
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @DataJpaTest
@@ -72,11 +72,16 @@ public class OrderRepoTest {
     @Test
     public void save() {
 
+        //Create an order and use the repo to save it.
+        Order orderSaveTest = new Order();
+        orderSaveTest.setNumOfBricks(56);
+        orderSaveTest.setCustomer(customer);
+        orderRepo.save(orderSaveTest);
 
-        //when
+        //when saved
         List<Order> all = orderRepo.findAll();
-        //then
-        assertThat(all.size()).isEqualTo(4);
+        //then assert there's 5 items in the db; 4 created in the set up method and 1 created in this test.
+        assertThat(all.size()).isEqualTo(5);
 
     }
 

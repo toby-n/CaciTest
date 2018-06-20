@@ -39,7 +39,7 @@ public class ApiController {
         return orderService.findOrderbyId(id); //else return the object found.
     }
 
-    //To create a new order post the number of bricks and the customer ID to this route.
+    //To create a new order post the number of bricks and the customer ID to this route. The ID of the inputted object is returned.
     @PostMapping("/create_order")
     public Integer createOrder(@RequestBody Order order)
     {
