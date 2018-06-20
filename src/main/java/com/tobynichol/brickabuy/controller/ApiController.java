@@ -28,12 +28,18 @@ public class ApiController {
         return orderService.findAllOrders();
     }
 
+    //To find a single order send an ID to this route.
     @ExceptionHandler(OrderNotFoundException.class)
     @GetMapping("/orders/{id}")
     public Order getOrderById(@PathVariable("id") Integer id){
-        return orderService.findOrderbyId(id);
+
+        if (orderService.findOrderbyId(id) == null)
+            throw new OrderNotFoundException("id-" + id); //Custom error handling
+
+        return orderService.findOrderbyId(id); //else return the object found.
     }
 
+    //To create a new order post the number of bricks and the customer ID to this route.
     @PostMapping("/create_order")
     public Integer createOrder(@RequestBody Order order)
     {
